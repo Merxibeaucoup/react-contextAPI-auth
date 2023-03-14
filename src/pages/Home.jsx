@@ -7,6 +7,7 @@ const Home = () => {
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
   return (
     <div>
       Home

@@ -22,7 +22,7 @@ export default function Login() {
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }
-    navigate("/");
+    navigate("/get");
   };
 
   return (
