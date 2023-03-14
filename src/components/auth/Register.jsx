@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth/AuthContext";
+import newRequest from "../../utils/newRequest";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -8,6 +10,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  const { dispatch, isFetching } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -19,12 +23,16 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: "REGISTER_START" });
     try {
+      const res = newRequest.post("/auth/register", {
+        ...user,
+      });
+      dispatch({ type: "REGISTER_SUCCESS", payload: res.data });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: "REGISTER_FAILURE" });
     }
-
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -56,7 +64,9 @@ const Register = () => {
           <label htmlFor="">Password</label>
           <input name="password" type="password" onChange={handleChange} />
 
-          <button type="submit">Register</button>
+          <button type="submit" disabled={isFetching}>
+            Register
+          </button>
         </div>
       </form>
     </div>

@@ -21,7 +21,7 @@ const Reducer = (state, action) => {
     case "REGISTER_START":
       return {
         user: null,
-        isFetching: false,
+        isFetching: true,
         error: false,
       };
     case "REGISTER_SUCCESS":
