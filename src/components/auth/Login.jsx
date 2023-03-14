@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth/AuthContext";
 import newRequest from "../../utils/newRequest";
 
@@ -8,6 +7,8 @@ export default function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
   const { dispatch, isFetching } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ export default function Login() {
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }
+    navigate("/");
   };
 
   return (
